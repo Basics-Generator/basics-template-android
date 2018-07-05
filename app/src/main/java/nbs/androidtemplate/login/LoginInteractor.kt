@@ -16,15 +16,16 @@ class LoginInteractor(private var presenter : LoginInterface) {
      * Handle result in another thread
      */
     fun login(url : String, jsonObject: JSONObject){
-        Requester.postJSONWithHeader(url, jsonObject, {
+        Requester.postJSONWithHeader(url, jsonObject, Response.Listener<String> {
             response ->
             Thread(Runnable {
                 val result = response.isNotEmpty()
                 presenter.succes(result)
             }).start()
 
-        }, {
+        },  Response.ErrorListener {
             error ->
+
             Thread(Runnable {
                 displayError(error)
 

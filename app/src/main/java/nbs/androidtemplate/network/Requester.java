@@ -75,7 +75,7 @@ public class Requester
         request.setShouldCache(putInCache);
         addRequestPolicy(request);
 
-        App.getInstance().addToRequestQueue(request, REQUEST_TAG + url.hashCode());
+        App.Companion.getInstance().addToRequestQueue(request, REQUEST_TAG + url.hashCode());
     }
 
     static void getStringFromServer(String url, boolean putInCache, Response.Listener<String> listener, Response.ErrorListener errorListener) {
@@ -90,7 +90,7 @@ public class Requester
         stringObjReq.setShouldCache(putInCache);
         addRequestPolicy(stringObjReq);
 
-        App.getInstance().addToRequestQueue(stringObjReq, REQUEST_TAG + url.hashCode());
+        App.Companion.getInstance().addToRequestQueue(stringObjReq, REQUEST_TAG + url.hashCode());
     }
 
 
@@ -131,7 +131,7 @@ public class Requester
         addCustomRequestPolicy(postRequest, REQUEST_CH_TIMEOUT_MS, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
 
         // Adding request to request queue
-        App.getInstance().addToRequestQueue(postRequest, REQUEST_TAG + "post");
+        App.Companion.getInstance().addToRequestQueue(postRequest, REQUEST_TAG + "post");
     }
 
     public static void postWithHeader(final String url, final Map<String, String> data, Response.Listener<String> listener, final Response.ErrorListener errorListener, final String userToken)
@@ -156,7 +156,7 @@ public class Requester
         };
         addCustomRequestPolicy(postRequest, REQUEST_CH_TIMEOUT_MS, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
 
-        App.getInstance().addToRequestQueue(postRequest, REQUEST_TAG + "post");
+        App.Companion.getInstance().addToRequestQueue(postRequest, REQUEST_TAG + "post");
     }
 
 
@@ -194,7 +194,7 @@ public class Requester
         addCustomRequestPolicy(postRequest, REQUEST_CH_TIMEOUT_MS, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
 
         // Adding request to request queue
-        App.getInstance().addToRequestQueue(postRequest, REQUEST_TAG + "put");
+        App.Companion.getInstance().addToRequestQueue(postRequest, REQUEST_TAG + "put");
     }
 
     /**
@@ -238,7 +238,7 @@ public class Requester
      * @return
      */
     public static Cache.Entry getCache(String url) {
-        com.android.volley.Cache cache = App.getInstance().getRequestQueue().getCache();
+        com.android.volley.Cache cache = App.Companion.getInstance().getRequestQueue().getCache();
         return cache.get(url);
     }
 
@@ -277,7 +277,6 @@ public class Requester
             } catch (UnsupportedEncodingException e) {
                 Log.e(TAG, "Erreur lors du parsing de la reponse", e);
             }
-
             return null;
         }
     }
